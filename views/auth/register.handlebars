@@ -1,0 +1,26 @@
+<form class="form-container" action="/register" method="post">
+    <h2>Cadastre-se</h2>
+    <div class="form-inputs">
+        <label for="name">Nome:</label>
+        <input type="text" name="name" placeholder="Digite seu nome." required>
+    </div>
+    <div class="form-inputs">
+        <label for="email">Email:</label>
+        <input type="email" name="email" placeholder="Digite seu email." required>
+    </div>
+    <div class="form-inputs">
+        <label for="cpf">CPF/CNPJ:</label>
+        <input type="number" name="cpf" placeholder="Digite seu CPF/CNPJ." required>
+    </div>
+    <div class="form-inputs">
+        <label for="password">Senha:</label>
+        <input type="password" name="password" placeholder="Digite sua senha." required>
+    </div>
+    <div class="form-inputs">
+        <label for="confirmpassword">Confirme a senha:</label>
+        <input type="password" name="confirmpassword" placeholder="Digite sua senha." required>
+    </div>
+
+    <input type="submit" value="Cadastrar-se">
+    <p>Já possui uma conta? <a href="/login">Entrar</a></p>
+</form>

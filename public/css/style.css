@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    background-color: #161c36;
+    padding: 0;
+    color: #FBEAEB;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* CORES */
+.color1 {color: #161c36;}
+.color2 {color: #1f2750;}
+.color3 {color: #4f59b0;}
+.color4 {color: #8d93fa;}
+.color5 {color: #e0dbf6;}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2em;
+    border-bottom: 1px solid #FBEAEB;
+}
+
+.navbar ul {
+    display: flex;
+    gap: 1.5em;
+}
+
+.navbar ul li {
+    list-style: none;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    transition: .25s;
+}
+
+.navbar ul li a:hover {
+    color: #4f59b0;
+}
+
+/* BODY */
+.container{
+    min-height: 60vh;
+    padding: 5em 7em;
+}
+
+/* REGISTRO / LOGIN */
+.form-container{
+    display: flex;
+    flex-direction: column;
+    max-width: 30%;
+    margin: 0 auto;
+}
+
+.form-container h2{
+    border-left: #4f59b0 solid 6px;
+    padding: 10px;
+    margin-bottom: .8em;
+}
+.form-inputs{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.form-inputs label{
+    font-weight: bold;
+    margin-bottom: .5em;
+}
+
+.form-inputs input{
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #4f59b0;
+}
+
+.form-container input[type='submit']{
+    background-color: #4f59b0;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    margin-bottom: .7em;
+    transition: .25s;
+}
+.form-container input[type='submit']:hover{
+    background-color: #fff;
+    color: #4f59b0;
+    cursor: pointer;
+}
+
+/* FLASH MESSAGES */
+.message {
+    padding: 1em;
+    color: #004085;
+    background-color: #cce5ff;
+    border: 1px solid #b8daff;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 auto 2em;
+    max-width: 60%;
+}
