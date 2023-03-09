@@ -16,8 +16,15 @@
             <img src="img/logo2.png" alt="Logo do site" width="84px" height="64px">
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Registrar</a></li>
+
+                {{#if session.auth }}
+                    <li><a href="/users/dashboard">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                {{else}}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Registrar</a></li>
+                {{/if}}
+
             </ul>
         </nav>
     </header>

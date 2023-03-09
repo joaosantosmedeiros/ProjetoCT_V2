@@ -90,6 +90,14 @@
     cursor: pointer;
 }
 
+.form-container p a{
+    font-weight: bold;
+    transition: .25s;
+}
+.form-container p a:hover{
+    color: #4f59b0;
+}
+
 /* FLASH MESSAGES */
 .message {
     padding: 1em;

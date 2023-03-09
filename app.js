@@ -28,7 +28,7 @@ app.use(
         saveUninitialized: false,
         store: new FileStore({
             logFn: function () { },
-            path: require('path').join(require('os').tmpdir('sessions')),
+            path: require('path').join(require('os').tmpdir(), 'sessions'),
         }),
         cookie: {
             secure: false,
@@ -47,7 +47,7 @@ app.use(flash())
 
 // Coloca a sessao na resposta
 app.use((req, res, next) => {
-    if (req.session.TODO) {
+    if (req.session.userid || req.session.adminid) {
         res.locals.session = req.session
     }
 
