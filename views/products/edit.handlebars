@@ -1,0 +1,24 @@
+<div class="products-create">
+    <h1 class="title">Edite um produto</h1>
+    <form action="/products/edit" method="post" class="add-product">
+    <input type="hidden" name="id" value="{{product.id}}">
+        <div class="form-inputs">
+            <label for="name">Nome:</label>
+            <input type="text" name="name" value="{{product.name}}" placeholder="Digite o nome do produto." required>
+        </div>
+        <div class="form-inputs">
+            <label for="price">Preço:</label>
+            <input type="number" name="price" value="{{product.price}}" placeholder="Digite o preço do produto." required>
+        </div>
+        <div class="form-inputs">
+            <label for="unity">Unidade de medida:</label>
+            <select name="unity" required>
+                <option value="Kilograma">Kilograma</option>
+                <option value="Litro">Litro</option>
+            </select>
+        </div>
+        <div class="submit-button">
+            <input type="submit" value="Enviar" class="submit-btn">
+        </div>
+    </form>
+</div>

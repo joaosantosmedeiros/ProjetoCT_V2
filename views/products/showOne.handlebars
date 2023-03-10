@@ -1,0 +1,13 @@
+<h1 class="title">Produto {{product.id}}</h1>
+<div class="users-objects">
+    <p><span>Nome:</span> {{product.name}}</p>
+    <p><span>Unidade:</span> {{product.unity}}</p>
+    <p><span>Preço:</span> R${{product.price}}</p>
+    <div class="icon">
+        <form action="/products/delete" method="post">
+            <input type="hidden" name="id" value="{{product.id}}">
+            <a href="/products/edit/{{product.id}}"><i class="bi bi-pencil-fill pointer"></i></a>
+            <button class="no-border" type="submit"><i class="bi bi-archive-fill pointer"></i></button>
+        </form>
+    </div>
+</div>

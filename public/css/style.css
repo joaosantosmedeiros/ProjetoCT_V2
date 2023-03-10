@@ -85,13 +85,14 @@
     margin-bottom: .5em;
 }
 
-.form-inputs input {
+.form-inputs input,
+.form-inputs select{
     padding: 7px;
     border-radius: 3px;
     border: 1px solid #4f59b0;
 }
 
-.form-container input[type='submit'] {
+.form-container input[type='submit']{
     background-color: #4f59b0;
     border: none;
     border-radius: 5px;
@@ -128,7 +129,7 @@
 }
 
 /* DASHBOARD */
-.dashboard-page .title {
+.title {
     margin-bottom: 1em;
     border-left: #4f59b0 5px solid;
     padding: 10px;
@@ -188,4 +189,41 @@
 
 .users-objects span {
     color: #8d93fa;
+}
+
+/* PRODUTOS */
+.products-create{
+    max-width: 30%;
+}
+
+.submit-button input[type='submit']{
+    background-color: #4f59b0;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    margin-bottom: .7em;
+    transition: .25s;
+    width: 100px;
+}
+
+.submit-button input[type='submit']:hover {
+    background-color: #fff;
+    color: #4f59b0;
+    cursor: pointer;
+}
+
+.icon{
+    margin-top: 10px;
+}
+
+.no-border{
+    border: none;
+}
+
+.pointer{
+    transition: .25s;
+}
+.pointer:hover{
+    cursor: pointer;
+    color: #4f59b0;
 }

@@ -1,5 +1,5 @@
 {{#if session.userid}}
-    <h1>User Dashboard</h1>
+    <h1 class="title">User Dashboard</h1>
 {{/if}}
 
 {{#if session.adminid}}
@@ -17,9 +17,9 @@
         <div class="dashboard-areas">
             <h2>Produtos</h2>
             <a href="/products/add"><button class="btn">Cadastrar Produto</button></a>
-            <button class="btn">Listar Produtos</button>
-            <form action="/users/list" method="get">
-                <input type="text" name="email" placeholder="Digite o nome do produto.">
+            <a href="/products/list"><button class="btn">Listar Produtos</button></a>
+            <form action="/products/list" method="get">
+                <input type="text" name="name" placeholder="Digite o nome do produto.">
                 <button class="btn">Buscar Produtos</button>
             </form>
         </div>

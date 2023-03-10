@@ -59,6 +59,10 @@ const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
 const productRoutes = require('./routes/productRoutes')
 
+app.get('/404', (req, res) => {
+    res.render('errors/404')
+})
+
 // Utilização de rotas
 app.use('/', authRoutes)
 app.use('/users', userRoutes)

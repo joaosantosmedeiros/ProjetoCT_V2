@@ -8,13 +8,13 @@ const Product = db.define('Product', {
         unique: true
     },
     price: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
     unity: {
         type: DataTypes.ENUM('Kilograma', 'Litro'),
         allowNull: false
-    }
-})
+    },
+}, { timestamps: false })
 
 module.exports = Product

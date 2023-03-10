@@ -12,21 +12,19 @@ module.exports = class UserController {
         }
         console.log(query)
 
-        const usersRaw = await User.findAll(
-            {
-                where: {
-                    email: {[Op.like]: `%${query}%`}
-                },
-                order: [
-                    ['type', 'DESC'],
-                    ['id', 'ASC']
-                ]
-            }
-        )
+        const usersRaw = await User.findAll({
+            where: {
+                email: { [Op.like]: `%${query}%` }
+            },
+            order: [
+                ['type', 'DESC'],
+                ['id', 'ASC']
+            ]
+        })
 
         const users = usersRaw.map(e => e.dataValues)
 
-        res.render('users/viewAll', { users })
+        return res.render('users/show', { users })
     }
 
 }

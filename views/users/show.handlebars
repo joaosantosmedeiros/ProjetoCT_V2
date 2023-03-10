@@ -1,12 +1,11 @@
+<h1 class="title">Lista de Usuários</h1>
 {{#each users}}
-<div class="users-objects">
-    <a href="/users/{{this.id}}">
+    <div class="users-objects">
         <p><span>Id:</span> {{this.id}}</p>
         <p><span>Nome:</span> {{this.name}}</p>
         <p><span>Email:</span> {{this.email}}</p>
         <p><span>CPF/CNPJ:</span> {{this.cpf}}</p>
         <p><span>Ativo:</span> {{this.active}}</p>
         <p><span>Tipo:</span> {{this.type}}</p>
-    </a>
-</div>
+    </div>
 {{/each}}
