@@ -131,4 +131,8 @@ module.exports = class AuthController {
         req.session.destroy()
         res.redirect('/')
     }
+
+    static dashboard(req, res){
+        return res.render('auth/dashboard')
+    }
 }

@@ -3,7 +3,7 @@ const db = require('../db/conn')
 
 const Product = db.define('Product', {
     name: {
-        type: DataTypes.ENUM('Queijo', 'Iogurte', 'Manteiga', 'Doce de Leite'),
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },

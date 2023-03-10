@@ -7,11 +7,25 @@
 }
 
 /* CORES */
-.color1 {color: #161c36;}
-.color2 {color: #1f2750;}
-.color3 {color: #4f59b0;}
-.color4 {color: #8d93fa;}
-.color5 {color: #e0dbf6;}
+.color1 {
+    color: #161c36;
+}
+
+.color2 {
+    color: #1f2750;
+}
+
+.color3 {
+    color: #4f59b0;
+}
+
+.color4 {
+    color: #8d93fa;
+}
+
+.color5 {
+    color: #e0dbf6;
+}
 
 /* NAVBAR */
 .navbar {
@@ -41,42 +55,43 @@
 }
 
 /* BODY */
-.container{
+.container {
     min-height: 60vh;
-    padding: 5em 7em;
+    padding: 3.5em 7em;
 }
 
 /* REGISTRO / LOGIN */
-.form-container{
+.form-container {
     display: flex;
     flex-direction: column;
     max-width: 30%;
     margin: 0 auto;
 }
 
-.form-container h2{
+.form-container h2 {
     border-left: #4f59b0 solid 6px;
     padding: 10px;
     margin-bottom: .8em;
 }
-.form-inputs{
+
+.form-inputs {
     display: flex;
     flex-direction: column;
     margin-bottom: 1em;
 }
 
-.form-inputs label{
+.form-inputs label {
     font-weight: bold;
     margin-bottom: .5em;
 }
 
-.form-inputs input{
+.form-inputs input {
     padding: 7px;
     border-radius: 3px;
     border: 1px solid #4f59b0;
 }
 
-.form-container input[type='submit']{
+.form-container input[type='submit'] {
     background-color: #4f59b0;
     border: none;
     border-radius: 5px;
@@ -84,17 +99,19 @@
     margin-bottom: .7em;
     transition: .25s;
 }
-.form-container input[type='submit']:hover{
+
+.form-container input[type='submit']:hover {
     background-color: #fff;
     color: #4f59b0;
     cursor: pointer;
 }
 
-.form-container p a{
+.form-container p a {
     font-weight: bold;
     transition: .25s;
 }
-.form-container p a:hover{
+
+.form-container p a:hover {
     color: #4f59b0;
 }
 
@@ -108,4 +125,67 @@
     text-align: center;
     margin: 0 auto 2em;
     max-width: 60%;
+}
+
+/* DASHBOARD */
+.dashboard-page .title {
+    margin-bottom: 1em;
+    border-left: #4f59b0 5px solid;
+    padding: 10px;
+}
+
+.dashboard-areas {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0dbf6;
+    margin-bottom: 2em;
+}
+
+.dashboard-areas h2 {
+    margin-bottom: .5em;
+}
+
+.dashboard-areas input[type='text'] {
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #4f59b0;
+    width: 220px;
+}
+
+.btn {
+    background-color: #4f59b0;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    margin-bottom: .7em;
+    transition: .25s;
+    width: 150px;
+}
+
+.btn:hover {
+    background-color: #fff;
+    color: #4f59b0;
+    cursor: pointer;
+}
+
+/* DASHBOARD ADM - USUÁRIOS */
+.users-objects {
+    margin-bottom: 2em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #4f59b0;
+    text-decoration: none;
+}
+
+.users-objects p {
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+.users-objects a{
+    text-decoration: none;
+}
+
+.users-objects span {
+    color: #8d93fa;
 }
