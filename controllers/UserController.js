@@ -128,4 +128,29 @@ module.exports = class UserController {
 
     }
 
+    static async delete(req, res) {
+        const userId = req.session.userid
+        const id = Number(req.body.id)
+
+        // Verifica se o id do usuario da sessao é o mesmo do id do usuario que sera deletado
+        if (userId != id) {
+            req.session.destroy()
+            return res.redirect('/login')
+        }
+
+        // Verifica se o usuário existe
+        const user = await User.findByPk(id)
+        if (!user) {
+            req.flash('message', 'Erro inesperado! Tente novamente')
+            req.session.save(() => {
+                return res.redirect('/dashboard')
+            })
+        }
+
+        await User.update({ active: false }, { where: { id } })
+
+        req.session.destroy()
+        res.redirect('/')
+
+    }
 }

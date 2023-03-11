@@ -23,13 +23,18 @@
             <input type="password" name="password" placeholder="Digite a sua senha atual." required>
         </div>
         <div class="submit-button">
-            <input type="submit" value="Editar" class="submit-btn">
+            <button type="submit" class="btn">Salvar</button>
         </div>
+    </form>
+    <form action="/users/delete" id="delete-form" method="post">
+        <input type="hidden" name="id" value="{{user.id}}">
+        <button class="btn" type="submit">Deletar</button>
     </form>
 </div>
 
 <script>
     const form = document.getElementById('meu-formulario');
+    const form2 = document.getElementById('delete-form');
 
     form.addEventListener('submit', function onSubmit(event) {
         event.preventDefault();
@@ -39,6 +44,17 @@
         if (confirmacao == true) {
             form.removeEventListener('submit', onSubmit);
             form.submit();
+        }
+    });
+
+    form2.addEventListener('submit', function onSubmit(event) {
+        event.preventDefault();
+
+        const confirmacao = window.confirm('Deseja realmente deletar sua conta?');
+
+        if (confirmacao == true) {
+            form2.removeEventListener('submit', onSubmit);
+            form2.submit();
         }
     });
 </script>
