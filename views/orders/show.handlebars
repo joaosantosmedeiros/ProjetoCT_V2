@@ -1,0 +1,13 @@
+<h1 class="title">Lista de Pedidos</h1>
+{{#each orders}}
+    <div class="users-objects">
+        <a href="/orders/list/{{this.id}}">
+            <p><span>Id:</span> {{this.id}}</p>
+            <p><span>Produto:</span> {{this.productName}}</p>
+            <p><span>Quantidade:</span> {{this.quantity}}</p>
+            <p><span>Id do Usuário:</span> {{this.UserId}}</p>
+            <p><span>Valor:</span> R${{this.totalPrice}}</p>
+            <p><span>Aprovado:</span> {{this.approved}}</p>
+        </a>
+    </div>
+{{/each}}

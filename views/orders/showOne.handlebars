@@ -1,0 +1,30 @@
+<h1 class="title">Pedido {{order.id}}</h1>
+<div class="users-objects">
+    <p><span>Id:</span> {{order.id}}</p>
+    <p><span>Produto:</span> {{order.productName}}</p>
+    <p><span>Quantidade:</span> {{order.quantity}}</p>
+    <p><span>Id do Usuário:</span> {{order.UserId}}</p>
+    <p><span>Valor:</span> R${{order.totalPrice}}</p>
+    <p><span>Aprovado:</span> {{order.approved}}</p>
+    {{#if order.disapproved}}
+        <form action="/orders/approve" method="post">
+            <input type="hidden" name="id" value="{{order.id}}">
+            <button class="btn" type="submit">Aprovar</button>
+        </form>
+    {{/if}}
+</div>
+
+<script>
+    const form = document.getElementById('meu-formulario');
+
+    form.addEventListener('submit', function onSubmit(event) {
+        event.preventDefault();
+
+        const confirmacao = window.confirm('Deseja realmente deletar este produto?');
+
+        if (confirmacao == true) {
+            form.removeEventListener('submit', onSubmit);
+            form.submit();
+        }
+    });
+</script>

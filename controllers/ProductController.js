@@ -56,7 +56,7 @@ module.exports = class ProductController {
         }
     }
 
-    static async show(req, res) {
+    static async list(req, res) {
 
         let query = ''
 
@@ -75,7 +75,7 @@ module.exports = class ProductController {
         return res.render('products/show', { products })
     }
 
-    static async showOne(req, res) {
+    static async listOne(req, res) {
         const id = req.params.id
 
         const product = await Product.findByPk(id, { raw: true })

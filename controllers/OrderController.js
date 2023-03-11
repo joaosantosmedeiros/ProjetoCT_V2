@@ -1,8 +1,45 @@
 const Product = require('../models/Product')
 const User = require('../models/User')
 const Order = require('../models/Order')
+const { Op } = require('sequelize')
 
 module.exports = class OrderController {
+
+    static async list(req, res) {
+
+        let search = req.query.id ? req.query.id : ''
+
+        const ordersRaw = await Order.findAll({
+            where: { id: { [Op.like]: `%${search}%` } }
+        })
+        const orders = ordersRaw.map(e => e.dataValues)
+
+        for (const order of orders) {
+            order.approved = order.approved == false ? 'Não' : 'Sim'
+
+            if (order.approved == 'Não') {
+                order.disapproved = true
+            }
+        }
+
+        return res.render('orders/show', { orders })
+    }
+
+    static async listOne(req, res) {
+        const id = req.params.id
+
+        const order = await Order.findByPk(id, { raw: true })
+        if (!order) {
+            return res.redirect('/404')
+        }
+
+        if (order.approved == 0) {
+            order.disapproved = true
+            order.approved = 'Não'
+        }
+
+        return res.render('orders/showOne', { order })
+    }
 
     static async createOrder(req, res) {
 
@@ -131,6 +168,22 @@ module.exports = class OrderController {
         await Order.destroy({ where: { id: order.id } })
 
         req.flash('message', 'Pedido deletado com sucesso!')
+        req.session.save(() => {
+            return res.redirect('/dashboard')
+        })
+    }
+
+    static async approve(req, res) {
+        const id = Number(req.body.id)
+       
+        const order = await Order.findByPk(id, { raw: true })
+        if (!order) {
+            return res.redirect('/404')
+        }
+
+        await Order.update({ approved: true }, { where: { id: id } })
+
+        req.flash('message', 'Pedido aprovado com sucesso!')
         req.session.save(() => {
             return res.redirect('/dashboard')
         })
