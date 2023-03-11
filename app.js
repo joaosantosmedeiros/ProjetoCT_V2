@@ -57,6 +57,7 @@ app.use((req, res, next) => {
 // Import de rotas
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
+const orderRoutes = require('./routes/orderRoutes')
 const productRoutes = require('./routes/productRoutes')
 
 app.get('/404', (req, res) => {
@@ -67,6 +68,7 @@ app.get('/404', (req, res) => {
 app.use('/', authRoutes)
 app.use('/users', userRoutes)
 app.use('/products', productRoutes)
+app.use('/orders', orderRoutes)
 
 // Realiza conexão com o BD e inicia o APP
 conn.sync({ force: false })

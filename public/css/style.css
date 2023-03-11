@@ -135,6 +135,10 @@
     padding: 10px;
 }
 
+.dashboard-areas a{
+    text-decoration: none;
+}
+
 .dashboard-areas {
     display: flex;
     flex-direction: column;

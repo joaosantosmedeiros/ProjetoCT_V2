@@ -8,6 +8,15 @@ const Order = db.define('Order', {
     quantity: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    totalPrice:{
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+    approved: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
     }
 })
 

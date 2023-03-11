@@ -1,5 +1,17 @@
 {{#if session.userid}}
-    <h1 class="title">User Dashboard</h1>
+    <div class="dashboard-page">
+        <h1 class="title">Dashboard</h1>
+
+        <div class="dashboard-areas">
+            <a href="/orders/create"><h2 class="pointer">Realizar Pedidos</h2></a>
+        </div>
+        <div class="dashboard-areas">
+            <a href="/orders/myorders"><h2 class="pointer">Meus Pedidos</h2></a>
+        </div>
+        <div class="dashboard-areas">
+            <a href="/users/settings"><h2 class="pointer">Configurações</h2></a>
+        </div>
+    </div>
 {{/if}}
 
 {{#if session.adminid}}
@@ -25,7 +37,6 @@
         </div>
         <div class="dashboard-areas">
             <h2>Pedidos</h2>
-            <button class="btn">Cadastrar Pedido</button>
             <button class="btn">Listar Pedidos</button>
             <form action="/users/list" method="get">
                 <input type="text" name="email" placeholder="Digite o id do pedido.">

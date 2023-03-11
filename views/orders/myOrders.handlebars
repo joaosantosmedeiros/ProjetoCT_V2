@@ -1,0 +1,30 @@
+<h1 class="title">Meus pedidos</h1>
+{{#each orders}}
+    <div class="users-objects">
+        <p><span>Id:</span> {{this.id}}</p>
+        <p><span>Produto:</span> {{this.productName}}</p>
+        <p><span>Preço Total:</span> R${{this.totalPrice}}</p>
+        <p><span>Aprovado:</span> {{this.approved}}</p>
+        {{#if this.deletable}}
+            <form action="/orders/myOrders/delete" id="meu-formulario" method="post">
+                <input type="hidden" name="id" value="{{this.id}}">
+                <button class="no-border" type="submit"><i class="bi bi-trash3-fill pointer"></i></button>
+            </form>
+        {{/if}}
+    </div>
+{{/each}}
+
+<script>
+    const form = document.getElementById('meu-formulario');
+
+    form.addEventListener('submit', function onSubmit(event) {
+        event.preventDefault();
+
+        const confirmacao = window.confirm('Deseja realmente deletar este pedido?');
+
+        if (confirmacao == true) {
+            form.removeEventListener('submit', onSubmit);
+            form.submit();
+        }
+    });
+</script>

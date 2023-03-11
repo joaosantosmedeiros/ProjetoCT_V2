@@ -1,0 +1,16 @@
+<h1 class="title">Confirme seu pedido</h1>
+<div class="users-objects">
+    <p><span>Produto:</span> {{order.productName}}</p>
+    <p><span>Quantidade:</span> {{order.quantity}}</p>
+    <p><span>Preço total: </span>R${{order.totalPrice}}</p>
+</div>
+<div class="submit-button">
+    <a href=""><input type="submit" value="Voltar" class="submit-btn"></a>
+    <form action="/orders/confirm" method="post">
+        <input type="hidden" name="productName" value="{{order.productName}}">
+        <input type="hidden" name="quantity" value="{{order.quantity}}">
+        <input type="hidden" name="totalPrice" value="{{order.totalPrice}}">
+        <input type="hidden" name="UserId" value="{{order.UserId}}">
+        <input type="submit" value="Confirmar" class="submit-btn">
+    </form>
+</div>

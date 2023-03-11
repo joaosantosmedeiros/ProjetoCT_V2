@@ -1,0 +1,20 @@
+<div class="products-create">
+    <h1 class="title">Faça um pedido</h1>
+    <form action="/orders/create" method="post" class="add-product">
+        <div class="form-inputs">
+            <label for="name">Produto:</label>
+            <select name="name" required>
+                {{#each productsNames}}
+                <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-inputs">
+            <label for="quantity">Quantidade:</label>
+            <input type="number" name="quantity" required>
+        </div>
+        <div class="submit-button">
+            <input type="submit" value="Enviar" class="submit-btn">
+        </div>
+    </form>
+</div>

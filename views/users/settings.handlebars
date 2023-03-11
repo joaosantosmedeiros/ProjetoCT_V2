@@ -1,0 +1,44 @@
+<div class="products-create">
+    <h1 class="title">Configurações</h1>
+    <form action="/users/settings" id="meu-formulario" method="post" class="add-product">
+    <input type="hidden" name="id" value="{{user.id}}">
+        <div class="form-inputs">
+            <label for="name">Nome:</label>
+            <input type="text" name="name" value="{{user.name}}" placeholder="Digite o nome do usuário." required>
+        </div>
+        <div class="form-inputs">
+            <label for="email">Email:</label>
+            <input type="email" name="email" value="{{user.email}}" placeholder="Digite o email do usuário." required>
+        </div>
+        <div class="form-inputs">
+            <label for="cpf">CPF/CNPJ:</label>
+            <input type="number" name="cpf" value="{{user.cpf}}" placeholder="Digite o CPF ou CNPJ do usuário." required>
+        </div>
+        <div class="form-inputs">
+            <label for="newPassword">Nova Senha:</label>
+            <input type="password" name="newPassword" placeholder="Digite a nova senha.">
+        </div>
+        <div class="form-inputs">
+            <label for="password">Verifique sua Identidade:</label>
+            <input type="password" name="password" placeholder="Digite a sua senha atual." required>
+        </div>
+        <div class="submit-button">
+            <input type="submit" value="Editar" class="submit-btn">
+        </div>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById('meu-formulario');
+
+    form.addEventListener('submit', function onSubmit(event) {
+        event.preventDefault();
+
+        const confirmacao = window.confirm('Deseja realmente editar seus dados?');
+
+        if (confirmacao == true) {
+            form.removeEventListener('submit', onSubmit);
+            form.submit();
+        }
+    });
+</script>

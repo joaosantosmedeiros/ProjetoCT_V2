@@ -18,6 +18,17 @@ module.exports = class ProductController {
             return res.render('products/create')
         }
 
+        // Põe a primeira letra em maiúsculo
+        const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1);
+        
+        // Verifica se o produto ja existe
+        const checkIfProductExists = await Product.findOne({ where: { name: nameCapitalized } })
+        if(checkIfProductExists){
+            req.flash('message', 'Produto já cadastrado!')
+
+            return res.render('products/create')
+        }
+
         // Verifica se o valor inserido do preço é um número
         if (typeof price != 'number') {
             req.flash('message', 'Preço deve ser numérico!')
@@ -27,7 +38,7 @@ module.exports = class ProductController {
 
         try {
             await Product.create({
-                name: name,
+                name: nameCapitalized,
                 price: price,
                 unity: unity
             })
@@ -114,7 +125,10 @@ module.exports = class ProductController {
             return res.render('products/create')
         }
 
-        const product = { name, price, unity }
+        // Põe a primeira letra do produto em maiusculo
+        const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1);
+
+        const product = { name: nameCapitalized, price, unity }
 
         try {
             await Product.update(product, { where: { id } })
