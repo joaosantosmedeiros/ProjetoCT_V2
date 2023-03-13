@@ -43,7 +43,7 @@ module.exports = class OrderController {
 
     static async createOrder(req, res) {
 
-        const productsRaw = await Product.findAll()
+        const productsRaw = await Product.findAll({ where: { available: true } })
         const products = productsRaw.map(e => e.dataValues)
         const productsNames = products.map(e => e.name)
 
@@ -77,7 +77,13 @@ module.exports = class OrderController {
         // Verifica se o produto existe
         const product = await Product.findOne({ where: { name }, raw: true })
         if (!product) {
-            req.flash('message', 'Insira um produto existente!!')
+            req.flash('message', 'Insira um produto existente!')
+            return res.render('orders/create')
+        }
+
+        // Verifica se o produto está disponível
+        if (product.available == false) {
+            req.flash('message', 'Insira um produto disponível!')
             return res.render('orders/create')
         }
 
@@ -175,7 +181,7 @@ module.exports = class OrderController {
 
     static async approve(req, res) {
         const id = Number(req.body.id)
-       
+
         const order = await Order.findByPk(id, { raw: true })
         if (!order) {
             return res.redirect('/404')

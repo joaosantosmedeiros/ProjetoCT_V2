@@ -3,26 +3,12 @@
     <p><span>Nome:</span> {{product.name}}</p>
     <p><span>Unidade:</span> {{product.unity}}</p>
     <p><span>Preço:</span> R${{product.price}}</p>
+    <p><span>Disponível: </span>{{product.available}}</p>
     <div class="icon">
-        <form action="/products/delete" id="meu-formulario" method="post">
+        <form action="/products/change" id="meu-formulario" method="post">
             <input type="hidden" name="id" value="{{product.id}}">
             <a href="/products/edit/{{product.id}}"><i class="bi bi-pencil-fill pointer"></i></a>
-            <button class="no-border" type="submit"><i class="bi bi-trash3-fill pointer"></i></button>
+            <button class="no-border" type="submit"><i class="bi bi-arrow-repeat pointer"></i></i></button>
         </form>
     </div>
 </div>
-
-<script>
-    const form = document.getElementById('meu-formulario');
-
-    form.addEventListener('submit', function onSubmit(event) {
-        event.preventDefault();
-
-        const confirmacao = window.confirm('Deseja realmente deletar este produto?');
-
-        if (confirmacao == true) {
-            form.removeEventListener('submit', onSubmit);
-            form.submit();
-        }
-    });
-</script>

@@ -9,7 +9,7 @@
     {{#if order.disapproved}}
         <form action="/orders/approve" method="post">
             <input type="hidden" name="id" value="{{order.id}}">
-            <button class="btn" type="submit">Aprovar</button>
+            <button class="btn last-one" type="submit">Aprovar</button>
         </form>
     {{/if}}
 </div>

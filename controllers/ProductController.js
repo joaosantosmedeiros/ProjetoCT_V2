@@ -20,10 +20,10 @@ module.exports = class ProductController {
 
         // Põe a primeira letra em maiúsculo
         const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1);
-        
+
         // Verifica se o produto ja existe
         const checkIfProductExists = await Product.findOne({ where: { name: nameCapitalized } })
-        if(checkIfProductExists){
+        if (checkIfProductExists) {
             req.flash('message', 'Produto já cadastrado!')
 
             return res.render('products/create')
@@ -72,6 +72,10 @@ module.exports = class ProductController {
 
         const products = productsRaw.map(e => e.dataValues)
 
+        for (const product of products) {
+            product.available = product.available == true ? 'Sim' : 'Não'
+        }
+
         return res.render('products/show', { products })
     }
 
@@ -83,10 +87,12 @@ module.exports = class ProductController {
             return res.redirect('/404')
         }
 
+        product.available = product.available == 1 ? 'Sim' : 'Não'
+
         return res.render('products/showOne', { product })
     }
 
-    static async delete(req, res) {
+    static async changeAvailability(req, res) {
         const id = Number(req.body.id)
 
         const product = await Product.findByPk(id)
@@ -94,12 +100,23 @@ module.exports = class ProductController {
             return res.redirect('/404')
         }
 
-        await product.destroy()
+        const newAvailability = product.available == true ? false : true
 
-        req.flash('message', 'Produto deletado com sucesso!')
-        req.session.save(() => {
-            return res.redirect('/dashboard')
-        })
+        try {
+            await Product.update({ available: newAvailability }, { where: { id: product.id } })
+
+            req.flash('message', 'Produto atualizado com sucesso!')
+            req.session.save(() => {
+                return res.redirect('/dashboard')
+            })
+
+        } catch (error) {
+            console.log(err)
+            req.flash('message', 'Erro inesperado! Tente novamente')
+            req.session.save(() => {
+                return res.redirect('/dashboard')
+            })
+        }
     }
 
     static async edit(req, res) {

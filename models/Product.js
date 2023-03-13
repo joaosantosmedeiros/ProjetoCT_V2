@@ -11,6 +11,11 @@ const Product = db.define('Product', {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
+    available: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+    },
     unity: {
         type: DataTypes.ENUM('Kilograma', 'Litro'),
         allowNull: false
