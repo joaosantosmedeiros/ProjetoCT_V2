@@ -11,6 +11,9 @@ const Product = require('./models/Product')
 const app = express()
 const conn = require('./db/conn')
 
+// Pasta public para arquivos estáticos
+app.use(express.static('public'))
+
 // Template engine
 app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
@@ -32,15 +35,12 @@ app.use(
         }),
         cookie: {
             secure: false,
-            maxAge: 360000,
-            expires: new Date(Date.now() + 360000),
+            maxAge: 1000 * 60 * 60 * 24,
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
             httpOnly: true
         }
     })
 )
-
-// Pasta public para arquivos estáticos
-app.use(express.static('public'))
 
 // Mensagens flash
 app.use(flash())
