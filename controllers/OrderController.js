@@ -2,6 +2,13 @@ const Product = require('../models/Product')
 const User = require('../models/User')
 const Order = require('../models/Order')
 const { Op } = require('sequelize')
+const getDate = require('../helpers/getDate').getDate
+
+// Imports para email
+const formData = require('form-data');
+const Mailgun = require('mailgun.js');
+const mailgun = new Mailgun(formData);
+const mg = mailgun.client({ username: 'api', key: 'key-yourkeyhere' });
 
 module.exports = class OrderController {
 
@@ -15,11 +22,7 @@ module.exports = class OrderController {
         const orders = ordersRaw.map(e => e.dataValues)
 
         for (const order of orders) {
-            order.approved = order.approved == false ? 'Não' : 'Sim'
-
-            if (order.approved == 'Não') {
-                order.disapproved = true
-            }
+            order.createdAt = getDate(order.createdAt)
         }
 
         return res.render('orders/show', { orders })
@@ -33,9 +36,11 @@ module.exports = class OrderController {
             return res.redirect('/404')
         }
 
-        if (order.approved == 0) {
-            order.disapproved = true
-            order.approved = 'Não'
+        // Formata a data
+        order.createdAt = getDate(order.createdAt)
+
+        if (order.status == 'Pendente') {
+            order.pending = true
         }
 
         return res.render('orders/showOne', { order })
@@ -139,8 +144,10 @@ module.exports = class OrderController {
         const orders = ordersRaw.map(e => e.dataValues)
 
         for (const order of orders) {
-            order.approved = order.approved == false ? 'Não' : 'Sim'
-            if (order.approved == 'Não') {
+            // Formata a data
+            order.createdAt = getDate(order.createdAt)
+
+            if (order.status == 'Pendente') {
                 order.deletable = true
             }
         }
@@ -187,9 +194,23 @@ module.exports = class OrderController {
             return res.redirect('/404')
         }
 
-        await Order.update({ approved: true }, { where: { id: id } })
+        let status = req.body.status == 'refused' ? 'Recusado' : 'Aceito'
 
-        req.flash('message', 'Pedido aprovado com sucesso!')
+        await Order.update({ status }, { where: { id: id } })
+
+        // Enviar email
+        mg.messages.create('sandbox-123.mailgun.org', {
+            from: "Excited User <mailgun@sandbox-123.mailgun.org>",
+            to: ["jopesame@gmail.com"],
+            subject: "Hello",
+            text: "Testing some Mailgun awesomness!",
+        })
+            .then(msg => console.log(msg)) // logs response data
+            .catch(err => console.error(err)); // logs any error
+
+        status = status.toLowerCase()
+
+        req.flash('message', `Pedido ${status} com sucesso!`)
         req.session.save(() => {
             return res.redirect('/dashboard')
         })

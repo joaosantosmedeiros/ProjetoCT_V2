@@ -13,9 +13,9 @@ const Order = db.define('Order', {
         type: DataTypes.FLOAT,
         allowNull: false
     },
-    approved: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
+    status: {
+        type: DataTypes.ENUM('Aceito', 'Pendente', 'Recusado'),
+        defaultValue: 'Pendente',
         allowNull: false
     }
 })

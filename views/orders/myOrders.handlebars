@@ -4,7 +4,8 @@
         <p><span>Id:</span> {{this.id}}</p>
         <p><span>Produto:</span> {{this.productName}}</p>
         <p><span>Preço Total:</span> R${{this.totalPrice}}</p>
-        <p><span>Aprovado:</span> {{this.approved}}</p>
+        <p><span>Data: </span>{{this.createdAt}}</p>
+        <p><span>Status:</span> {{this.status}}</p>
         {{#if this.deletable}}
             <form action="/orders/myOrders/delete" id="meu-formulario" method="post">
                 <input type="hidden" name="id" value="{{this.id}}">
