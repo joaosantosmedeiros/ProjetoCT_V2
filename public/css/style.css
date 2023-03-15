@@ -86,13 +86,13 @@
 }
 
 .form-inputs input,
-.form-inputs select{
+.form-inputs select {
     padding: 7px;
     border-radius: 3px;
     border: 1px solid #4f59b0;
 }
 
-.form-container input[type='submit']{
+.form-container input[type='submit'] {
     background-color: #4f59b0;
     border: none;
     border-radius: 5px;
@@ -135,7 +135,7 @@
     padding: 10px;
 }
 
-.dashboard-areas a{
+.dashboard-areas a {
     text-decoration: none;
 }
 
@@ -187,7 +187,7 @@
     text-decoration: none;
 }
 
-.users-objects a{
+.users-objects a {
     text-decoration: none;
 }
 
@@ -195,12 +195,18 @@
     color: #8d93fa;
 }
 
+.my-orders {
+    padding-left: 2em;
+    display: flex;
+    gap: 15em;
+}
+
 /* PRODUTOS */
-.products-create{
+.products-create {
     max-width: 30%;
 }
 
-.submit-button input[type='submit']{
+.submit-button input[type='submit'] {
     background-color: #4f59b0;
     border: none;
     border-radius: 5px;
@@ -216,22 +222,43 @@
     cursor: pointer;
 }
 
-.icon{
+.icon {
     margin-top: 10px;
 }
 
-.no-border{
+.no-border {
     border: none;
 }
 
-.pointer{
+.pointer {
     transition: .25s;
 }
-.pointer:hover{
+
+.pointer:hover {
     cursor: pointer;
     color: #4f59b0;
 }
 
-.last-one{
+.last-one {
     margin-top: 10px;
+}
+
+.transparent {
+    color: #161c36;
+}
+
+.subtitle {
+    margin-bottom: .75em;
+    border-left: 5px solid;
+    padding: 5px;
+}
+
+.yellow {
+    border-color: rgb(195, 195, 52);
+}
+.green {
+    border-color: rgb(88, 195, 52);
+}
+.red {
+    border-color: rgb(195, 76, 52);
 }

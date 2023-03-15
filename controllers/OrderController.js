@@ -145,10 +145,16 @@ module.exports = class OrderController {
             order.createdAt = getDate(order.createdAt)
 
             if (order.status == 'Pendente') {
+                order.pending = true
                 order.deletable = true
+            } else if (order.status == 'Aceito') {
+                order.accepted = true
+            } else {
+                order.denied = true
             }
-        }
 
+        }
+        
         return res.render('orders/myOrders', { orders })
     }
 

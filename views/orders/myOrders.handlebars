@@ -1,19 +1,60 @@
 <h1 class="title">Meus pedidos</h1>
-{{#each orders}}
-    <div class="users-objects">
-        <p><span>Id:</span> {{this.id}}</p>
-        <p><span>Produto:</span> {{this.productName}}</p>
-        <p><span>Preço Total:</span> R${{this.totalPrice}}</p>
-        <p><span>Data: </span>{{this.createdAt}}</p>
-        <p><span>Status:</span> {{this.status}}</p>
-        {{#if this.deletable}}
-            <form action="/orders/myOrders/delete" id="meu-formulario" method="post">
-                <input type="hidden" name="id" value="{{this.id}}">
-                <button class="no-border" type="submit"><i class="bi bi-trash3-fill pointer"></i></button>
-            </form>
-        {{/if}}
+<div class="my-orders">
+    <div class="pending">
+        <h2 class="subtitle yellow">Pendentes</h2>
+        {{#each orders}}
+            {{#if this.pending}}
+                <div class="users-objects">
+                    <p><span>Id:</span> {{this.id}}</p>
+                    <p><span>Produto:</span> {{this.productName}}</p>
+                    <p><span>Preço Total:</span> R${{this.totalPrice}}</p>
+                    <p><span>Data: </span>{{this.createdAt}}</p>
+                    <p><span>Status:</span> {{this.status}}</p>
+                    {{#if this.deletable}}
+                        <form action="/orders/myOrders/delete" id="meu-formulario" method="post">
+                            <input type="hidden" name="id" value="{{this.id}}">
+                            <button class="no-border" type="submit"><i class="bi bi-trash3-fill pointer"></i></button>
+                        </form>
+                    {{/if}}
+                </div>
+            {{/if}}
+        {{/each}}
     </div>
-{{/each}}
+
+    <div class="accepted">
+        <h2 class="subtitle green">Aceitos</h2>
+        {{#each orders}}
+            {{#if this.accepted}}
+                <div class="users-objects">
+                    <p><span>Id:</span> {{this.id}}</p>
+                    <p><span>Produto:</span> {{this.productName}}</p>
+                    <p><span>Preço Total:</span> R${{this.totalPrice}}</p>
+                    <p><span>Data: </span>{{this.createdAt}}</p>
+                    <p><span>Status:</span> {{this.status}}</p>
+                    <button class="no-border" ><i class="bi bi-trash3-fill transparent"></i></button>
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+
+    <div class="denied">
+        <h2 class="subtitle red">Negados</h2>
+        {{#each orders}}
+            {{#if this.denied}}
+                <div class="users-objects">
+                    <p><span>Id:</span> {{this.id}}</p>
+                    <p><span>Produto:</span> {{this.productName}}</p>
+                    <p><span>Preço Total:</span> R${{this.totalPrice}}</p>
+                    <p><span>Data: </span>{{this.createdAt}}</p>
+                    <p><span>Status:</span> {{this.status}}</p>
+                    <button class="no-border"><i class="bi bi-trash3-fill transparent"></i></button>
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+    
+        
+</div>
 
 <script>
     const form = document.getElementById('meu-formulario');
