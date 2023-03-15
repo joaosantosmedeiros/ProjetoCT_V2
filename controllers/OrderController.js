@@ -3,12 +3,9 @@ const User = require('../models/User')
 const Order = require('../models/Order')
 const { Op } = require('sequelize')
 const getDate = require('../helpers/getDate').getDate
+require('dotenv').config()
 
-// Imports para email
-const formData = require('form-data');
-const Mailgun = require('mailgun.js');
-const mailgun = new Mailgun(formData);
-const mg = mailgun.client({ username: 'api', key: 'key-yourkeyhere' });
+const nodemailer = require('nodemailer')
 
 module.exports = class OrderController {
 
@@ -189,8 +186,15 @@ module.exports = class OrderController {
     static async approve(req, res) {
         const id = Number(req.body.id)
 
+        // Verifica se pedido existe
         const order = await Order.findByPk(id, { raw: true })
         if (!order) {
+            return res.redirect('/404')
+        }
+
+        // Verifica se cliente do pedido existe
+        const user = await User.findByPk(order.UserId, { raw: true })
+        if (!user) {
             return res.redirect('/404')
         }
 
@@ -198,17 +202,28 @@ module.exports = class OrderController {
 
         await Order.update({ status }, { where: { id: id } })
 
-        // Enviar email
-        mg.messages.create('sandbox-123.mailgun.org', {
-            from: "Excited User <mailgun@sandbox-123.mailgun.org>",
-            to: ["jopesame@gmail.com"],
-            subject: "Hello",
-            text: "Testing some Mailgun awesomness!",
-        })
-            .then(msg => console.log(msg)) // logs response data
-            .catch(err => console.error(err)); // logs any error
-
         status = status.toLowerCase()
+
+        // Envio de emails
+        try {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: `${process.env.EMAIL_USER}`,
+                    pass: `${process.env.EMAIL_PASS}`
+                }
+            });
+
+            const result = await transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: `${user.email}`,
+                subject: `Status do pedido ${order.id}`,
+                text: `Seu pedido de ID: ${order.id} foi ${status}. \n\nCentral do Queijo \nIFRN Campus Currais Novos, 2023.`
+            });
+
+        } catch (err) {
+            console.log(err)
+        }
 
         req.flash('message', `Pedido ${status} com sucesso!`)
         req.session.save(() => {
