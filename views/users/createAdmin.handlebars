@@ -1,0 +1,25 @@
+<form class="form-container" action="/users/createAdmin" method="post">
+    <h2>Insira os dados</h2>
+    <div class="form-inputs">
+        <label for="name">Nome:</label>
+        <input type="text" name="name" placeholder="Digite o nome." required>
+    </div>
+    <div class="form-inputs">
+        <label for="email">Email:</label>
+        <input type="email" name="email" placeholder="Digite o email." required>
+    </div>
+    <div class="form-inputs">
+        <label for="cpf">CPF ou CNPJ:</label>
+        <input type="number" name="cpf" placeholder="Digite o CPF ou CNPJ." required>
+    </div>
+    <div class="form-inputs">
+        <label for="password">Senha:</label>
+        <input type="password" name="password" placeholder="Digite a senha." required>
+    </div>
+    <div class="form-inputs">
+        <label for="confirmpassword">Confirme a senha:</label>
+        <input type="password" name="confirmpassword" placeholder="Digite a senha." required>
+    </div>
+
+    <input type="submit" value="Cadastrar">
+</form>

@@ -4,6 +4,65 @@ const bcrypt = require('bcryptjs')
 
 module.exports = class UserController {
 
+    static async createAdminPost(req, res) {
+        const { name, cpf, email, password, confirmpassword } = req.body
+
+        // Verifica se todos os dados forem inseridos
+        if (!name || !cpf || !email || !password || !confirmpassword) {
+            req.flash('message', 'Preencha todos os campos!')
+            return res.render('user/createAdmin')
+        }
+        
+        // Verifica se as senhas inseridas conferem
+        if (password !== confirmpassword) {
+            req.flash('message', 'As senhas não conferem!')
+            return res.render('user/createAdmin')
+        }
+        
+        // Verifica se algum usuário ja foi cadastrado pelo email ou cpf/cnpj
+        const userExists = await User.findOne({
+            where: {
+                [Op.or]: [
+                    { cpf: cpf },
+                    { email: email }
+                ]
+            }
+        })
+        
+        if (userExists) {
+            req.flash('message', 'Usuário já cadastrado!')
+            return res.render('user/createAdmin')
+        }
+        
+        const salt = bcrypt.genSaltSync()
+        const encryptedPassword = bcrypt.hashSync(password, salt)
+        
+        try {
+            const user = await User.create({
+                name,
+                email,
+                password: encryptedPassword,
+                cpf,
+                type: 'admin'
+            })
+            
+            req.flash('message', 'Administrador cadastrado com sucesso!')
+            
+            req.session.save(() => {
+                return res.redirect('/')
+            })
+            
+        } catch (err) {
+            console.log(err)
+            req.flash('message', 'Erro inesperado!')
+            return res.render('user/createAdmin')
+        }
+    }
+
+    static async createAdmin(req, res) {
+        return res.render('users/createAdmin')
+    }
+
     static async list(req, res) {
 
         let query = ''
