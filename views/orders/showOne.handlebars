@@ -5,11 +5,18 @@
     <p><span>Quantidade:</span> {{order.quantity}}</p>
     <p><span>Id do Usuário:</span> {{order.UserId}}</p>
     <p><span>Valor:</span> R${{order.totalPrice}}</p>
-    <p><span>Aprovado:</span> {{order.approved}}</p>
-    {{#if order.disapproved}}
+    <p><span>Data: </span>{{order.createdAt}}</p>
+    <p><span>Status:</span> {{order.status}}</p>
+    {{#if order.pending}}
         <form action="/orders/approve" method="post">
+            <input type="hidden" name="status" value="approved">
             <input type="hidden" name="id" value="{{order.id}}">
             <button class="btn last-one" type="submit">Aprovar</button>
+        </form>
+        <form action="/orders/approve" method="post">
+            <input type="hidden" name="status" value="refused">
+            <input type="hidden" name="id" value="{{order.id}}">
+            <button class="btn" type="submit">Recusar</button>
         </form>
     {{/if}}
 </div>

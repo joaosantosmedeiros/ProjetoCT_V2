@@ -2,6 +2,10 @@ const Product = require('../models/Product')
 const User = require('../models/User')
 const Order = require('../models/Order')
 const { Op } = require('sequelize')
+const getDate = require('../helpers/getDate').getDate
+require('dotenv').config()
+
+const nodemailer = require('nodemailer')
 
 module.exports = class OrderController {
 
@@ -15,11 +19,7 @@ module.exports = class OrderController {
         const orders = ordersRaw.map(e => e.dataValues)
 
         for (const order of orders) {
-            order.approved = order.approved == false ? 'Não' : 'Sim'
-
-            if (order.approved == 'Não') {
-                order.disapproved = true
-            }
+            order.createdAt = getDate(order.createdAt)
         }
 
         return res.render('orders/show', { orders })
@@ -33,9 +33,11 @@ module.exports = class OrderController {
             return res.redirect('/404')
         }
 
-        if (order.approved == 0) {
-            order.disapproved = true
-            order.approved = 'Não'
+        // Formata a data
+        order.createdAt = getDate(order.createdAt)
+
+        if (order.status == 'Pendente') {
+            order.pending = true
         }
 
         return res.render('orders/showOne', { order })
@@ -139,12 +141,20 @@ module.exports = class OrderController {
         const orders = ordersRaw.map(e => e.dataValues)
 
         for (const order of orders) {
-            order.approved = order.approved == false ? 'Não' : 'Sim'
-            if (order.approved == 'Não') {
-                order.deletable = true
-            }
-        }
+            // Formata a data
+            order.createdAt = getDate(order.createdAt)
 
+            if (order.status == 'Pendente') {
+                order.pending = true
+                order.deletable = true
+            } else if (order.status == 'Aceito') {
+                order.accepted = true
+            } else {
+                order.denied = true
+            }
+
+        }
+        
         return res.render('orders/myOrders', { orders })
     }
 
@@ -182,14 +192,46 @@ module.exports = class OrderController {
     static async approve(req, res) {
         const id = Number(req.body.id)
 
+        // Verifica se pedido existe
         const order = await Order.findByPk(id, { raw: true })
         if (!order) {
             return res.redirect('/404')
         }
 
-        await Order.update({ approved: true }, { where: { id: id } })
+        // Verifica se cliente do pedido existe
+        const user = await User.findByPk(order.UserId, { raw: true })
+        if (!user) {
+            return res.redirect('/404')
+        }
 
-        req.flash('message', 'Pedido aprovado com sucesso!')
+        let status = req.body.status == 'refused' ? 'Recusado' : 'Aceito'
+
+        await Order.update({ status }, { where: { id: id } })
+
+        status = status.toLowerCase()
+
+        // Envio de emails
+        try {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: `${process.env.EMAIL_USER}`,
+                    pass: `${process.env.EMAIL_PASS}`
+                }
+            });
+
+            const result = await transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: `${user.email}`,
+                subject: `Status do pedido ${order.id}`,
+                text: `Seu pedido de ID: ${order.id} foi ${status}. \n\nCentral do Queijo \nIFRN Campus Currais Novos, 2023.`
+            });
+
+        } catch (err) {
+            console.log(err)
+        }
+
+        req.flash('message', `Pedido ${status} com sucesso!`)
         req.session.save(() => {
             return res.redirect('/dashboard')
         })
